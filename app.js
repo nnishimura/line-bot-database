@@ -66,17 +66,21 @@ app.post('/callback', function(req, res) {
     // 返事を生成する関数
     function(req, displayName, message_id, message_type, message_text) {
 
-      var answers = ['20年', 'ユーカリ'];
+      var answers = ['20年', 'ユーカリ', '20時間'];
       var shouldReplyTime = message_text.indexOf('いま何時') > -1;
       var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
       var hasAnswer = answers.indexOf(message_text) > -1
       var shouldQuiz = message_text === 'コアラクイズ';
 
-      if (!shouldQuiz && !hasAnswer) {
+      // if (!shouldQuiz && !hasAnswer) {
+      //   sendMessage.send(req, [messageTemplate.textMessage(message)]);
+      //   return;
+      // } else if (hasAnswer) {
+      //   sendMessage.send(req, [messageTemplate.textMessage('正解！')]);
+      // }
+      if (!shouldQuiz) {
+        var message = hasAnswer ? '正解！' : 'ブー';
         sendMessage.send(req, [messageTemplate.textMessage(message)]);
-        return;
-      } else if (hasAnswer) {
-        sendMessage.send(req, [messageTemplate.textMessage('正解！')]);
       }
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
