@@ -68,11 +68,15 @@ app.post('/callback', function(req, res) {
 
       var shouldReplyTime = message_text.indexOf('いま何時') > -1;
       var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
-      var shouldQuiz = message_text === 'コアラクイズ';
+
+      var shouldQuiz = message_text === 'コアラクイズ' || answers.indexOf(message_text);
+      var answers = ['20年', 'ユーカリ']
 
       if (!shouldQuiz) {
         sendMessage.send(req, [messageTemplate.textMessage(message)]);
         return;
+      } else if (answers.indexOf(message_text) > -1) {
+        sendMessage.send(req, [messageTemplate.textMessage('正解！')]);
       }
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
