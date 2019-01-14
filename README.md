@@ -1,10 +1,6 @@
 # 環境
 
-- Google Chrome  
-https://www.google.co.jp/chrome/
-
-- gmailアカウント取得  
-https://accounts.google.com/SignUp?hl=ja
+https://pure-garden-97627.herokuapp.com/
 
 # Heroku アカウント
 
