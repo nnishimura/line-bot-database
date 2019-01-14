@@ -49,3 +49,6 @@ SELECT id, choice1 From quiz;
 
 // テーブルにカラムを追加
 ALTER TABLE quiz ADD COLUMN imageUrl text;
+
+
+DELETE FROM quiz WHERE id = 1;

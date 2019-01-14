@@ -66,45 +66,17 @@ app.post('/callback', function(req, res) {
     // 返事を生成する関数
     function(req, displayName, message_id, message_type, message_text) {
 
-      // var quizTitle = "今の天気は";
-      // var shouldReplyTime = message_text.indexOf('いま何時') > -1;
-      // var shouldQuiz = message_text === quizTitle || answers.indexOf(message_text) > -1;
-      // var shouldGreet = !shouldReplyTime && !shouldQuiz
-      // var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
-      //
-      // if (!shouldQuiz) {
-      //   sendMessage.send(req, [messageTemplate.textMessage(message)]);
-      //   return;
-      // }
+      var shouldReplyTime = message_text.indexOf('いま何時') > -1;
+      var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
+      var shouldQuiz = message_text === 'コアラクイズ';
 
-      // データベースを使う場合、下記のコードはコメントアウトしてください
-      //sendMessage.send(req, [messageTemplate.textMessage(message), messageTemplate.quickMessage("質問に答えてね！")]);
-
-      // flexメッセージを使う
-      // var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
-      // var answer = '晴れ';
-      // var choices = [
-      //   '雨',
-      //   answer,
-      //   'くもり',
-      //   '雪'
-      // ];
-      // var answers = [answer];
-      // sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
-      //
-      // // データベースを使って返信する場合、こちらのコメントを解除してください
-      // databaseSample(req, message_text);
-
-      // flexメッセージを使う
-      // var title = "質問";
-      // var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
-      // var choices = ["選択肢1", "選択肢2", "選択肢3", "選択肢4"];
-      // var answers = ["外れ", "正解", "外れ", "外れ"];
-      // sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
+      if (!shouldQuiz) {
+        sendMessage.send(req, [messageTemplate.textMessage(message)]);
+        return;
+      }
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
       databaseSample(req, message_text);
-
       return;
     }
   );
