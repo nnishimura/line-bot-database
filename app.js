@@ -66,16 +66,16 @@ app.post('/callback', function(req, res) {
     // 返事を生成する関数
     function(req, displayName, message_id, message_type, message_text) {
 
-      var quizTitle = "今の天気は";
-      var shouldReplyTime = message_text.indexOf('いま何時') > -1;
-      var shouldQuiz = message_text === quizTitle || answers.indexOf(message_text) > -1;
-      var shouldGreet = !shouldReplyTime && !shouldQuiz
-      var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
-
-      if (!shouldQuiz) {
-        sendMessage.send(req, [messageTemplate.textMessage(message)]);
-        return;
-      }
+      // var quizTitle = "今の天気は";
+      // var shouldReplyTime = message_text.indexOf('いま何時') > -1;
+      // var shouldQuiz = message_text === quizTitle || answers.indexOf(message_text) > -1;
+      // var shouldGreet = !shouldReplyTime && !shouldQuiz
+      // var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
+      //
+      // if (!shouldQuiz) {
+      //   sendMessage.send(req, [messageTemplate.textMessage(message)]);
+      //   return;
+      // }
 
       // データベースを使う場合、下記のコードはコメントアウトしてください
       //sendMessage.send(req, [messageTemplate.textMessage(message), messageTemplate.quickMessage("質問に答えてね！")]);
