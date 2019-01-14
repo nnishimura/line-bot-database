@@ -68,7 +68,7 @@ app.post('/callback', function(req, res) {
 
       var quizTitle = "今の天気は";
       var shouldReplyTime = message_text.indexOf('いま何時') > -1;
-      var shouldQuiz = message_text.indexOf(quizTitle) > -1;
+      var shouldQuiz = message_text.indexOf(quizTitle) > -1 || answers.indexOf(message_text) > -1;
       var shouldGreet = !shouldReplyTime && !shouldQuiz
       var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
 
