@@ -66,16 +66,16 @@ app.post('/callback', function(req, res) {
     // 返事を生成する関数
     function(req, displayName, message_id, message_type, message_text) {
 
+      var answers = ['20年', 'ユーカリ'];
       var shouldReplyTime = message_text.indexOf('いま何時') > -1;
       var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
+      var hasAnswer = answers.indexOf(message_text) > -1
+      var shouldQuiz = message_text === 'コアラクイズ';
 
-      var shouldQuiz = message_text === 'コアラクイズ' || answers.indexOf(message_text);
-      var answers = ['20年', 'ユーカリ']
-
-      if (!shouldQuiz) {
+      if (!shouldQuiz && !hasAnswer) {
         sendMessage.send(req, [messageTemplate.textMessage(message)]);
         return;
-      } else if (answers.indexOf(message_text) > -1) {
+      } else if (hasAnswer) {
         sendMessage.send(req, [messageTemplate.textMessage('正解！')]);
       }
 
