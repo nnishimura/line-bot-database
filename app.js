@@ -70,7 +70,7 @@ app.post('/callback', function(req, res) {
       var shouldReplyTime = message_text.indexOf('いま何時') > -1;
       var shouldQuiz = message_text.indexOf(quizTitle) > -1;
       var shouldGreet = !shouldReplyTime && !shouldQuiz
-      var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "hello, " + displayName + "."";
+      var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "こんにちは" + displayName + "さん。";
 
       if (!shouldQuiz) {
         sendMessage.send(req, [messageTemplate.textMessage(message)]);
