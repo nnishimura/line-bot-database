@@ -99,7 +99,7 @@ app.post('/callback', function(req, res) {
       var title = "質問";
       var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
       var choices = ["選択肢1", "選択肢2", "選択肢3", "選択肢4"];
-      var answers = ["回答1", "回答2", "回答3", "回答4"];
+      var answers = ["外れ", "正解", "外れ", "外れ"];
       sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
