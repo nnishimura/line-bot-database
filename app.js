@@ -74,21 +74,32 @@ app.post('/callback', function(req, res) {
 
       if (!shouldQuiz) {
         sendMessage.send(req, [messageTemplate.textMessage(message)]);
+        return;
       }
 
       // データベースを使う場合、下記のコードはコメントアウトしてください
       //sendMessage.send(req, [messageTemplate.textMessage(message), messageTemplate.quickMessage("質問に答えてね！")]);
 
       // flexメッセージを使う
+      // var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
+      // var answer = '晴れ';
+      // var choices = [
+      //   '雨',
+      //   answer,
+      //   'くもり',
+      //   '雪'
+      // ];
+      // var answers = [answer];
+      // sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
+      //
+      // // データベースを使って返信する場合、こちらのコメントを解除してください
+      // databaseSample(req, message_text);
+
+      // flexメッセージを使う
+      var title = "質問";
       var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
-      var answer = '晴れ';
-      var choices = [
-        '雨',
-        answer,
-        'くもり',
-        '雪'
-      ];
-      var answers = [answer];
+      var choices = ["選択肢1", "選択肢2", "選択肢3", "選択肢4"];
+      var answers = ["回答1", "回答2", "回答3", "回答4"];
       sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
