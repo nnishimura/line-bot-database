@@ -66,18 +66,20 @@ app.post('/callback', function(req, res) {
     // 返事を生成する関数
     function(req, displayName, message_id, message_type, message_text) {
 
-      var message = "hello, " + displayName + ". Current Time is " + new Date().toLocaleString();
+      var quizTitle = "今の天気は";
+      var shouldReplyTime = message_text.indexOf('いま何時') > -1;
+      var shouldQuiz = message_text.indexOf(quizTitle) > -1;
+      var shouldGreet = !shouldReplyTime && !shouldQuiz
+      var message = shouldReplyTime ? new Date().toLocaleTimeString() + 'です' : "hello, " + displayName + "."";
 
-      sendMessage.send(req, [messageTemplate.textMessage(message)]);
-      if (message_text.indexOf('いま何時？') > -1) {
-        message = new Date().toLocaleTimeString() + 'です';
+      if (!shouldQuiz) {
+        sendMessage.send(req, [messageTemplate.textMessage(message)]);
       }
 
       // データベースを使う場合、下記のコードはコメントアウトしてください
       //sendMessage.send(req, [messageTemplate.textMessage(message), messageTemplate.quickMessage("質問に答えてね！")]);
 
       // flexメッセージを使う
-      var title = "今の天気は？";
       var imageUrl = "https://pics.prcm.jp/2d801321d0793/72139800/jpeg/72139800.jpeg";
       var answer = '晴れ';
       var choices = [
@@ -87,7 +89,7 @@ app.post('/callback', function(req, res) {
         '雪'
       ];
       var answers = [answer];
-      sendMessage.send(req, [messageTemplate.customQuestionMessage(title, imageUrl, choices, answers)]);
+      sendMessage.send(req, [messageTemplate.customQuestionMessage(quizTitle, imageUrl, choices, answers)]);
 
       // データベースを使って返信する場合、こちらのコメントを解除してください
       // databaseSample(req, message_text);
